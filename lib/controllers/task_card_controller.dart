@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class TaskCardController {
-  static Color getTextColor(bool isChecked) {
+class TaskCardController extends GetxController {
+     static TaskCardController get to => Get.find();
+
+  Color getTextColor(bool isChecked) {
     if (isChecked) {
       //Logic to be checked if checkbox is clicked
         return Colors.grey;
@@ -12,7 +15,7 @@ class TaskCardController {
     }
   }
 
-  static TextDecoration getTextDecoration(bool isChecked) {
+  TextDecoration getTextDecoration(bool isChecked) {
     if (isChecked) {
       //Logic to be checked if checkbox is clicked
       return TextDecoration.lineThrough;
