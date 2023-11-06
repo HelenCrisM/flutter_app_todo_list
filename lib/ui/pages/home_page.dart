@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isChecked = true;
+  bool isChecked = false;
   TaskController controller = Get.put(TaskController());
   
 
