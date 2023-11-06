@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list/controllers/task_controller.dart';
 import 'package:todo_list/models/task_model.dart';
 import 'package:todo_list/ui/widgets/task_card_widget.dart';
