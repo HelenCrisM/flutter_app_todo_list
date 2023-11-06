@@ -10,8 +10,8 @@ class TaskController extends GetxController {
   static const keyName = 'task';
   TextEditingController textController = TextEditingController();
   List<TaskModel> tasks = List.empty(growable: true);
+  bool isChecked = false;
   late SharedPreferences prefs;
-
 
   getSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
@@ -24,7 +24,8 @@ class TaskController extends GetxController {
       tasks = taskList
           .map((task) => TaskModel.fromJson(json.decode(task)))
           .toList();
-    }
+    } 
+    update();
   }
 
   saveTask() {
