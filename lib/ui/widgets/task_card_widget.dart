@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:todo_list/controllers/task_card_controller.dart';
 
 import '../../controllers/task_controller.dart';
+import '../../models/task_model.dart';
 
 // ignore: must_be_immutable
 class TaskCardWidget extends StatefulWidget {
@@ -39,6 +40,8 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
             onChanged: (bool? value) {
               setState(() {
                 widget.isChecked = value!;
+                taskController.tasks.add(
+                    TaskModel(task: widget.title, isDone: widget.isChecked));
               });
               log('Fui clicado! ${widget.isChecked}');
 
