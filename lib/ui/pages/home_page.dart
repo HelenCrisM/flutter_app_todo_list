@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list/controllers/task_controller.dart';
 import 'package:todo_list/models/task_model.dart';
 import 'package:todo_list/ui/widgets/task_card_widget.dart';
@@ -18,16 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isChecked = true;
   TaskController controller = Get.put(TaskController());
-  
 
   @override
   void initState() {
     controller.getSharedPreferences();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +46,9 @@ class _HomePageState extends State<HomePage> {
                     if (text.isNotEmpty) {
                       setState(() {
                         controller.textController.text = '';
-
                         controller.tasks
-                            .add(TaskModel(task: text, isDone: isChecked));
+                            .add(TaskModel(task: text, isDone: controller.isChecked));
                       });
-                      log('isChecked: $isChecked');
                       controller.saveTask();
                     }
                   },
@@ -70,24 +61,24 @@ class _HomePageState extends State<HomePage> {
                 ),
               ]),
               const SizedBox(height: 10),
-               ListView.builder(
+              GetBuilder<TaskController>(
+                  builder: (newController) => ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: controller.tasks.length,
+                      itemCount: newController.tasks.length,
                       itemBuilder: (context, index) {
                         final item = controller.tasks[index];
                         return TaskCardWidget(
                             title: item.task,
                             removeItem: () {
                               setState(() {
-                                controller.deleteTask(index);
+                                newController.deleteTask(index);
                               });
-
-                              controller.saveTask();
+                              newController.saveTask();
                             },
                             isChecked: item.isDone);
-                      })
+                      }))
             ])),
       ),
     );
